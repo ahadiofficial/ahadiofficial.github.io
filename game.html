@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Play Game - Tic Tac Toe</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="game-mode-container">
+    <h2>🎮 Choose Game Mode</h2>
+
+    <div class="setting-item">
+      <label for="modeSelect">Game Mode:</label>
+      <select id="modeSelect">
+        <option value="human">👨‍👨‍👧‍👦 Human vs Human</option>
+        <option value="ai">🤖 Human vs Computer</option>
+      </select>
+    </div>
+
+    <div class="setting-item" id="difficultyWrapper" style="display: none;">
+      <label for="difficultySelect">AI Difficulty:</label>
+      <select id="difficultySelect">
+        <option value="easy">🙂 Easy</option>
+        <option value="hard">😈 Hard</option>
+      </select>
+    </div>
+
+    <button class="btn" onclick="startGame()">🚀 Start Game</button>
+    <a href="index.html" class="btn">⬅️ Back</a>
+  </div>
+
+  <script>
+    const modeSelect = document.getElementById('modeSelect');
+    const difficultyWrapper = document.getElementById('difficultyWrapper');
+
+    modeSelect.addEventListener('change', () => {
+      if (modeSelect.value === 'ai') {
+        difficultyWrapper.style.display = 'block';
+      } else {
+        difficultyWrapper.style.display = 'none';
+      }
+    });
+
+    function startGame() {
+      const mode = document.getElementById('modeSelect').value;
+      const difficulty = document.getElementById('difficultySelect').value;
+
+      // Save mode settings
+      localStorage.setItem('ttt_mode', mode);
+      if (mode === 'ai') {
+        localStorage.setItem('ttt_difficulty', difficulty);
+      }
+
+      // Navigate to actual game board
+      window.location.href = 'board.html';
+    }
+  </script>
+  <script>
+  // Load click sound
+  const globalClickSound = new Audio("click.wav");
+  globalClickSound.volume = 0.8;
+
+  // Play sound on every button or link click
+  document.addEventListener("DOMContentLoaded", () => {
+    const elements = document.querySelectorAll("button, a");
+
+    elements.forEach(el => {
+      el.addEventListener("click", () => {
+        if (localStorage.getItem("ttt_sound") !== "off") {
+          globalClickSound.currentTime = 0; // rewind to start
+          globalClickSound.play().catch(() => {}); // avoid autoplay error
+        }
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

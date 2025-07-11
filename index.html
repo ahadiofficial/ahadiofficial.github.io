@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tic Tac Toe - Home</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+  <div class="top-bar">
+    <button id="musicToggle">🎵 Music: On</button>
+    <button id="soundToggle">🔊 Sound: On</button>
+
+  </div>
+
+  <div class="main-container">
+    <h1 class="game-title">Tic Tac Toe</h1>
+    <div class="menu">
+  <a href="game.html" class="btn" id="playBtn" style="display: none;">🎮 Play</a>
+  <a href="leaderboard.html" class="btn">🏆 Leaderboard</a>
+  <a href="settings.html" class="btn">⚙️ Settings</a>
+  <a href="login.html" class="btn" id="loginBtn">👤 Login / Signup</a>
+  <button class="btn" id="logoutBtn" style="display: none;">🚪 Logout</button>
+</div>
+
+  </div>
+
+  <audio id="backgroundMusic" loop>
+  <source src="music.mp3" type="audio/mpeg" />
+  Your browser does not support audio.
+</audio>
+
+
+  <script src="script.js"></script>
+  <script>
+  const playBtn = document.getElementById("playBtn");
+  const loginBtn = document.getElementById("loginBtn");
+  const logoutBtn = document.getElementById("logoutBtn");
+
+  const session = localStorage.getItem("ttt_session");
+  const username = localStorage.getItem("ttt_account_user");
+
+  // Show/hide based on session
+  if (session === "active") {
+    playBtn.style.display = "inline-block";
+    logoutBtn.style.display = "inline-block";
+    loginBtn.style.display = "none";
+  } else {
+    playBtn.style.display = "none";
+    logoutBtn.style.display = "none";
+    loginBtn.style.display = "inline-block";
+  }
+
+  // Logout logic
+  logoutBtn.addEventListener("click", () => {
+    localStorage.removeItem("ttt_session");
+    alert("Logged out successfully.");
+    location.reload();
+  });
+</script>
+<script>
+  // Load click sound
+  const globalClickSound = new Audio("click.wav");
+  globalClickSound.volume = 0.8;
+
+  // Play sound on every button or link click
+  document.addEventListener("DOMContentLoaded", () => {
+    const elements = document.querySelectorAll("button, a");
+
+    elements.forEach(el => {
+      el.addEventListener("click", () => {
+        if (localStorage.getItem("ttt_sound") !== "off") {
+          globalClickSound.currentTime = 0; // rewind to start
+          globalClickSound.play().catch(() => {}); // avoid autoplay error
+        }
+      });
+    });
+  });
+</script>
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('service-worker.js')
+      .then(() => console.log("✅ Service Worker Registered"))
+      .catch(err => console.error("❌ SW Error", err));
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tic Tac Toe Game</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+
+<body>
+    <div class="game-container">
+        <h2 id="turnIndicator">Turn: ❌</h2>
+        <div class="board" id="gameBoard"></div>
+        <h3 id="resultMessage"></h3>
+
+        <!-- Game End Buttons -->
+        <div id="endButtons" class="end-buttons hidden">
+            <button class="btn" onclick="restartGame()">🔄 Restart</button>
+            <a class="btn" href="index.html">🏠 Home</a>
+        </div>
+    </div>
+
+    <!-- Overlay Menu -->
+    <div class="menu-overlay hidden" id="menuOverlay">
+        <div class="menu-tile">
+            <h2>☰ Game Menu</h2>
+            <button onclick="restartGame()">🔄 Restart</button>
+            <a href="leaderboard.html">🏆 Leaderboard</a>
+            <a href="game.html">⬅️ Change Mode</a>
+            <a href="settings.html">⚙️ Settings</a>
+            <a href="index.html">🏠 Home</a> <!-- 👈 This line added -->
+            <button onclick="resumeGame()">▶️ Resume</button>
+        </div>
+
+    </div>
+
+    <!-- Menu Toggle Button -->
+    <button id="menuToggle" class="menu-btn">☰ Menu</button>
+
+    <script src="board.js"></script>
+    <script>
+        // Load click sound
+        const globalClickSound = new Audio("click.wav");
+        globalClickSound.volume = 0.8;
+
+        // Play sound on every button or link click
+        document.addEventListener("DOMContentLoaded", () => {
+            const elements = document.querySelectorAll("button, a");
+
+            elements.forEach(el => {
+                el.addEventListener("click", () => {
+                    if (localStorage.getItem("ttt_sound") !== "off") {
+                        globalClickSound.currentTime = 0; // rewind to start
+                        globalClickSound.play().catch(() => { }); // avoid autoplay error
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>

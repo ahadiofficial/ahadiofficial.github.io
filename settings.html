@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Settings - Tic Tac Toe</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="settings-container">
+        <h2>⚙️ Settings</h2>
+
+        <div class="setting-item">
+            <label for="musicToggle">🎵 Background Music:</label>
+            <select id="musicToggle">
+                <option value="on">On</option>
+                <option value="off">Off</option>
+            </select>
+        </div>
+
+        <div class="setting-item">
+            <label for="soundToggle">🔊 Sound Effects:</label>
+            <select id="soundToggle">
+                <option value="on">On</option>
+                <option value="off">Off</option>
+            </select>
+        </div>
+
+        <div class="setting-item">
+            <label for="themeSelect">🎨 Theme:</label>
+            <select id="themeSelect">
+                <option value="dark">Dark</option>
+                <option value="light">Light</option>
+            </select>
+        </div>
+        <div class="settings-buttons-row">
+            <button class="btn" onclick="saveSettings()">💾 Save Settings</button>
+            <a href="index.html" class="btn">⬅️ Back to Home</a>
+        </div>
+
+        <script src="settings.js"></script>
+        <script>
+  // Load click sound
+  const globalClickSound = new Audio("click.wav");
+  globalClickSound.volume = 0.8;
+
+  // Play sound on every button or link click
+  document.addEventListener("DOMContentLoaded", () => {
+    const elements = document.querySelectorAll("button, a");
+
+    elements.forEach(el => {
+      el.addEventListener("click", () => {
+        if (localStorage.getItem("ttt_sound") !== "off") {
+          globalClickSound.currentTime = 0; // rewind to start
+          globalClickSound.play().catch(() => {}); // avoid autoplay error
+        }
+      });
+    });
+  });
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Login - Tic Tac Toe</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="auth-container">
+    <h2>Login</h2>
+    <form id="loginForm">
+      <input type="text" id="loginUsername" placeholder="Username" required />
+
+      <div class="password-field">
+        <input type="password" id="loginPassword" placeholder="Password" required />
+        <span class="toggle-eye" onclick="togglePassword('loginPassword', this)">👁️</span>
+      </div>
+
+      <button type="submit">Login</button>
+      <p>Don't have an account? <a href="signup.html">Sign up</a></p>
+    </form>
+  </div>
+
+  <script src="auth.js"></script>
+  <script>
+    function togglePassword(inputId, toggleIcon) {
+      const input = document.getElementById(inputId);
+      if (input.type === "password") {
+        input.type = "text";
+        toggleIcon.textContent = "🙈";
+      } else {
+        input.type = "password";
+        toggleIcon.textContent = "👁️";
+      }
+    }
+  </script>
+  <script>
+  // Load click sound
+  const globalClickSound = new Audio("click.wav");
+  globalClickSound.volume = 0.8;
+
+  // Play sound on every button or link click
+  document.addEventListener("DOMContentLoaded", () => {
+    const elements = document.querySelectorAll("button, a");
+
+    elements.forEach(el => {
+      el.addEventListener("click", () => {
+        if (localStorage.getItem("ttt_sound") !== "off") {
+          globalClickSound.currentTime = 0; // rewind to start
+          globalClickSound.play().catch(() => {}); // avoid autoplay error
+        }
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
