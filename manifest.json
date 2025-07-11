@@ -1,11 +1,16 @@
 {
   "name": "Ahad Tic Tac Toe",
   "short_name": "TicTacToe",
+  "id": "/",
+  "description": "Play Tic Tac Toe with fun sounds, animations, and challenge modes!",
   "start_url": "/index.html",
   "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#ff0000",
   "orientation": "portrait",
+  "background_color": "#111111",
+  "theme_color": "#ff0000",
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  },
   "icons": [
     {
       "src": "icon-192.png",
@@ -16,6 +21,14 @@
       "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshot1.png",
+      "sizes": "640x360",
+      "type": "image/png",
+      "label": "Game Board"
     }
   ]
 }
